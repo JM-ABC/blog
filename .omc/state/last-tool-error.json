@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd \\\"c:/Users/USER/Desktop/블로그 작성\\\" && git config user.name \\\"JM-ABC\\\" && git config user.email \\\"jmyoonkr@gmail.com\\\" && git pull origin main --allow-unrelated-histories -m \\\"Merge remote...",
+  "error": "Exit code 129\nerror: unknown switch `m'\nusage: git pull [<options>] [<repository> [<refspec>...]]\n\n    -v, --[no-]verbose    be more verbose\n    -q, --[no-]quiet      be more quiet\n    --[no-]progress       force progress reporting\n    --[no-]recurse-submodules[=<on-demand>]\n                          control for recursive fetching of submodules\n\nOptions related to merging\n    -r, --[no-]rebase[=(false|true|merges|interactive)]\n                          incorporate changes by rebasing rather than...",
+  "timestamp": "2026-04-26T03:41:56.311Z",
+  "retry_count": 1
+}

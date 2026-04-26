@@ -1,0 +1,21 @@
+[project]
+name = "content-pipeline"
+version = "0.1.0"
+description = "콘텐츠 주제를 입력하면 5개 플랫폼용 콘텐츠를 자동 생성하는 CLI 도구"
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=0.42.0",
+    "click>=8.1.0",
+    "python-dotenv>=1.0.0",
+    "tenacity>=8.2.0",
+]
+
+[project.scripts]
+contentpipe = "content_pipeline.cli:main"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

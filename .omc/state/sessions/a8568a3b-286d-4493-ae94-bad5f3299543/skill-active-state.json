@@ -1,0 +1,10 @@
+{
+  "active": true,
+  "skill_name": "style-reference",
+  "session_id": "a8568a3b-286d-4493-ae94-bad5f3299543",
+  "started_at": "2026-03-22T08:57:11.921Z",
+  "last_checked_at": "2026-03-22T09:02:06.172Z",
+  "reinforcement_count": 2,
+  "max_reinforcements": 3,
+  "stale_ttl_ms": 300000
+}

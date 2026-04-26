@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:economist.co.kr)",
+      "WebFetch(domain:www.techm.kr)",
+      "WebFetch(domain:www.aitimes.kr)",
+      "WebFetch(domain:zdnet.co.kr)",
+      "WebFetch(domain:www.edaily.co.kr)",
+      "WebFetch(domain:www.yna.co.kr)",
+      "WebFetch(domain:www.viva100.com)",
+      "WebFetch(domain:v.daum.net)",
+      "Edit(/.claude/skills/content-generator/**)",
+      "Edit(/.claude/skills/quality-validator/**)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\USER\\Desktop\\블로그 작성\\output"
+    ]
+  }
+}
