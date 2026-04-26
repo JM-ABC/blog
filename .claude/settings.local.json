@@ -47,7 +47,10 @@
       "WebFetch(domain:trends.google.com)",
       "WebFetch(domain:search.naver.com)",
       "WebFetch(domain:www.chosun.com)",
-      "WebFetch(domain:www.hankookilbo.com)"
+      "WebFetch(domain:www.hankookilbo.com)",
+      "WebFetch(domain:news.bizwatch.co.kr)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
