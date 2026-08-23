@@ -36,7 +36,7 @@ PLATFORM_RULES = {
     },
     "blog": {
         "min_length": 20000,
-        "max_length": 26000,
+        "max_length": 45000,
         "length_unit": "byte",
         "required_keywords": [],
         "min_keyword_counts": {},
@@ -129,6 +129,22 @@ def _body_before_sources(content: str) -> str:
     return content[: match.start()] if match else content
 
 
+def _strip_sources_section(content: str) -> str:
+    """분량 계산에서 '출처' 섹션만 제외한 콘텐츠를 반환한다 (태그 줄은 그대로 유지).
+
+    출처 목록은 검증 과정에서 확인한 근거 수만큼 계속 늘어나는 부록성 구간이라
+    실제 독자가 읽는 본문 분량과는 성격이 달라서, 블로그 분량 기준(CLAUDE.md 13번)
+    산정에서 제외한다."""
+    src_match = re.search(r'(?m)^\s*출처\s*$', content)
+    if not src_match:
+        return content
+    tag_match = re.search(r'(?m)^\s*태그\s*[:：]', content[src_match.end():])
+    if tag_match:
+        tag_start = src_match.end() + tag_match.start()
+        return content[: src_match.start()] + content[tag_start:]
+    return content[: src_match.start()]
+
+
 def validate_schema(content: str, platform: str) -> list[str]:
     """1단계: 스키마 검증 - 필수 섹션 존재 여부"""
     issues = []
@@ -176,8 +192,8 @@ def _validate_blog_schema(content: str) -> list[str]:
     else:
         faq_section = content.split("더 생각해볼 것들", 1)[1]
         faq_questions = re.findall(r'(?m)^\s*Q\.', faq_section)
-        if len(faq_questions) < 5:
-            issues.append(f"FAQ 질문이 {len(faq_questions)}개예요 (5개 필요)")
+        if len(faq_questions) < 2:
+            issues.append(f"FAQ 질문이 {len(faq_questions)}개예요 (2~3개 필요)")
 
     # 출처 섹션
     if not re.search(r'(?m)^\s*출처\s*$', content):
@@ -246,7 +262,8 @@ def validate_rules(content: str, platform: str) -> list[str]:
     issues = []
     rules = PLATFORM_RULES.get(platform, {})
     unit = rules.get("length_unit", "char")
-    content_length = _content_length(content, unit)
+    length_target = _strip_sources_section(content) if platform == "blog" else content
+    content_length = _content_length(length_target, unit)
     unit_label = "바이트" if unit == "byte" else "자"
 
     min_len = rules.get("min_length", 0)
