@@ -112,6 +112,7 @@ GLOBAL_CASE_KEYWORDS = [
     "Meta", "구글", "Google", "넷플릭스", "Netflix", "에어비앤비", "Airbnb",
     "로레알", "L'Oréal", "에스티로더", "Estée Lauder", "LVMH", "까르푸", "Carrefour",
     "테스코", "Tesco", "알디", "Aldi", "리들", "Lidl",
+    "달러제너럴", "Dollar General", "파이브빌로우", "Five Below", "엘프코스메틱", "e.l.f.",
 ]
 # "자라"(Zara)·"타겟"(Target)·"메타"(Meta)의 한글 표기는 일반 동사/명사와 겹쳐 오탐을
 # 유발하므로 영문 표기만 키워드로 둔다 (예: 자라다, 타겟팅, 메타버스).
