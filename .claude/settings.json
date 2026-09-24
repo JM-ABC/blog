@@ -15,5 +15,20 @@
     "additionalDirectories": [
       "c:\\Users\\USER\\Desktop\\블로그 작성\\output"
     ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .claude/hooks/check_blog_post.py",
+            "timeout": 30,
+            "statusMessage": "블로그 초고 검증 중..."
+          }
+        ]
+      }
+    ]
   }
 }

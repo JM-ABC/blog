@@ -113,6 +113,8 @@ GLOBAL_CASE_KEYWORDS = [
     "로레알", "L'Oréal", "에스티로더", "Estée Lauder", "LVMH", "까르푸", "Carrefour",
     "테스코", "Tesco", "알디", "Aldi", "리들", "Lidl",
     "달러제너럴", "Dollar General", "파이브빌로우", "Five Below", "엘프코스메틱", "e.l.f.",
+    "오카도", "Ocado", "크로거", "Kroger", "콜스", "Coles", "징동물류", "JD Logistics",
+    "차이나오", "Cainiao",
 ]
 # "자라"(Zara)·"타겟"(Target)·"메타"(Meta)의 한글 표기는 일반 동사/명사와 겹쳐 오탐을
 # 유발하므로 영문 표기만 키워드로 둔다 (예: 자라다, 타겟팅, 메타버스).
@@ -200,14 +202,16 @@ def _validate_blog_schema(content: str) -> list[str]:
     if not re.search(r'(?m)^\s*출처\s*$', content):
         issues.append("하단 출처 섹션('출처')이 없어요")
 
-    # SEO 태그 30개
+    # SEO 태그 최대 30개 (네이버 감안, 억지로 30개 채울 필요는 없음)
     tag_match = re.search(r'(?m)^\s*태그\s*[:：]\s*(.+)$', content)
     if not tag_match:
         issues.append("SEO 태그 섹션('태그: ...')이 없어요")
     else:
         tag_count = len([t for t in tag_match.group(1).split(",") if t.strip()])
-        if tag_count < 25:
-            issues.append(f"SEO 태그가 {tag_count}개예요 (30개 필요)")
+        if tag_count > 30:
+            issues.append(f"SEO 태그가 {tag_count}개예요 (최대 30개)")
+        elif tag_count < 10:
+            issues.append(f"SEO 태그가 {tag_count}개예요 (너무 적음, 최소 10개 권장)")
 
     # 해외 사례 비교 (voice-guide.md 필수 규칙) - 출처 목록 인용만으로는 인정하지 않고 본문만 검사
     body = _body_before_sources(content)
@@ -350,7 +354,7 @@ def build_feedback(issues: list[str], platform: str) -> str:
     if platform == "blog":
         feedback_parts.append(
             "블로그는 Vol 헤더, 상단 목차(■ 이 글에서 다루는 것), 하단 FAQ(■ 더 생각해볼 것들), "
-            "출처 섹션, SEO 태그 30개, 해외 사례 비교를 모두 포함해야 해요."
+            "출처 섹션, SEO 태그(최대 30개), 해외 사례 비교를 모두 포함해야 해요."
         )
 
     return "\n".join(feedback_parts)
