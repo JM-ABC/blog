@@ -10,7 +10,7 @@ class ValidationResult:
 
 
 # 플랫폼별 검증 규칙
-# blog는 CLAUDE.md 규칙(20,000바이트 이상)에 맞춰 byte 단위로 측정하고,
+# blog는 CLAUDE.md 규칙(15,000바이트 이상)에 맞춰 byte 단위로 측정하고,
 # 나머지 플랫폼은 기존처럼 글자수(char) 단위로 측정한다.
 PLATFORM_RULES = {
     "instagram": {
@@ -35,7 +35,7 @@ PLATFORM_RULES = {
         "min_keyword_counts": {},
     },
     "blog": {
-        "min_length": 20000,
+        "min_length": 15000,
         "max_length": 45000,
         "length_unit": "byte",
         "required_keywords": [],
@@ -189,10 +189,8 @@ def _validate_blog_schema(content: str) -> list[str]:
         if len(toc_items) < 5:
             issues.append(f"상단 목차 항목이 {len(toc_items)}개예요 (5~6개 필요)")
 
-    # 하단 FAQ
-    if "더 생각해볼 것들" not in content:
-        issues.append("하단 FAQ 섹션('■ 더 생각해볼 것들')이 없어요")
-    else:
+    # 하단 FAQ (선택: 필요하다고 판단될 때만 넣음, 넣었다면 질문 2개 이상)
+    if "더 생각해볼 것들" in content:
         faq_section = content.split("더 생각해볼 것들", 1)[1]
         faq_questions = re.findall(r'(?m)^\s*Q\.', faq_section)
         if len(faq_questions) < 2:
@@ -353,8 +351,9 @@ def build_feedback(issues: list[str], platform: str) -> str:
     feedback_parts.append("실무자 관점의 인사이트도 빠뜨리지 마세요.")
     if platform == "blog":
         feedback_parts.append(
-            "블로그는 Vol 헤더, 상단 목차(■ 이 글에서 다루는 것), 하단 FAQ(■ 더 생각해볼 것들), "
-            "출처 섹션, SEO 태그(최대 30개), 해외 사례 비교를 모두 포함해야 해요."
+            "블로그는 Vol 헤더, 상단 목차(■ 이 글에서 다루는 것), "
+            "출처 섹션, SEO 태그(최대 30개), 해외 사례 비교를 모두 포함해야 해요. "
+            "하단 FAQ(■ 더 생각해볼 것들)는 필요할 때만 넣어요."
         )
 
     return "\n".join(feedback_parts)
