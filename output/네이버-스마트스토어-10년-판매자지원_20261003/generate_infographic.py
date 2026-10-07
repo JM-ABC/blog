@@ -18,7 +18,7 @@ bars = ax1.bar(labels, vals, color=colors, width=0.55, zorder=3)
 style_axes(ax1)
 ax1.set_ylim(0, 65)
 for bar, val in zip(bars, vals):
-    ax1.annotate(f'{val:g}%', xy=(bar.get_x() + bar.get_width() / 2, val),
+    ax1.annotate(f'{val:.1f}%', xy=(bar.get_x() + bar.get_width() / 2, val),
                  xytext=(0, 8), textcoords='offset points',
                  ha='center', fontsize=14, fontweight='bold', color=COLORS['text'])
 add_badge(ax1, 2.5, 60, '성숙기엔 사업적 지원이 금융 지원보다 높아요', kind='positive', fontsize=11)
