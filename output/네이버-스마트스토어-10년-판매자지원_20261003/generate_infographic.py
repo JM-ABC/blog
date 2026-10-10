@@ -11,17 +11,23 @@ fig = new_branded_figure(
 # 왼쪽: 스마트스토어 주력 운영 이유 (단계별)
 ax1 = fig.add_axes([0.06, 0.15, 0.40, 0.58])
 panel_header(fig, 0.045, 0.46, 0.765, '스마트스토어를 주력으로 쓰는 이유', '단위: %, 응답 비율')
-labels = ['진입기\n금융 지원', '성장기\n금융 지원', '성숙기\n금융 지원', '성숙기\n사업적 지원']
-vals = [50.6, 53.2, 40.0, 48.3]
-colors = [COLORS['accent'], COLORS['accent'], COLORS['sub'], COLORS['positive_bar']]
-bars = ax1.bar(labels, vals, color=colors, width=0.55, zorder=3)
+stages = ['진입기', '성장기', '성숙기']
+fin = [50.6, 53.2, 40.0]
+biz = [43.2, 39.2, 48.3]
+x = [0, 1, 2]
+w = 0.36
+bars_f = ax1.bar([i - w / 2 for i in x], fin, width=w, color=COLORS['accent'], zorder=3, label='금융적 이유 (수수료·정산)')
+bars_b = ax1.bar([i + w / 2 for i in x], biz, width=w, color=COLORS['positive_bar'], zorder=3, label='사업적 이유 (노출·판로·물류)')
+ax1.set_xticks(x)
+ax1.set_xticklabels(stages)
 style_axes(ax1)
-ax1.set_ylim(0, 65)
-for bar, val in zip(bars, vals):
+ax1.set_ylim(0, 70)
+for bar, val in list(zip(bars_f, fin)) + list(zip(bars_b, biz)):
     ax1.annotate(f'{val:.1f}%', xy=(bar.get_x() + bar.get_width() / 2, val),
-                 xytext=(0, 8), textcoords='offset points',
-                 ha='center', fontsize=14, fontweight='bold', color=COLORS['text'])
-add_badge(ax1, 2.5, 60, '성숙기엔 사업적 지원이 금융 지원보다 높아요', kind='positive', fontsize=11)
+                 xytext=(0, 6), textcoords='offset points',
+                 ha='center', fontsize=12, fontweight='bold', color=COLORS['text'])
+ax1.legend(loc='upper left', frameon=False, fontsize=10)
+add_badge(ax1, 2, 62, '성숙기에서 순서가 바뀌어요', kind='positive', fontsize=11)
 
 # 오른쪽: 판매자쿠폰 도입 스토어의 매출 효과 (미사용 스토어 대비 배수)
 ax2 = fig.add_axes([0.56, 0.15, 0.395, 0.58])
