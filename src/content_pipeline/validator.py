@@ -118,6 +118,9 @@ GLOBAL_CASE_KEYWORDS = [
     "스레드업", "ThredUp", "더리얼리얼", "The RealReal", "포시마크", "Poshmark",
     "빈티드", "Vinted", "데팝", "Depop", "스톡엑스", "StockX", "그레일드", "Grailed",
     "베스티에르 콜렉티브", "Vestiaire Collective",
+    "조조타운", "조조", "ZOZO", "파페치", "Farfetch", "잘란도", "Zalando",
+    "아소스", "ASOS", "마이테레사", "Mytheresa", "레볼브", "Revolve",
+    "Boohoo",
 ]
 # "자라"(Zara)·"타겟"(Target)·"메타"(Meta)의 한글 표기는 일반 동사/명사와 겹쳐 오탐을
 # 유발하므로 영문 표기만 키워드로 둔다 (예: 자라다, 타겟팅, 메타버스).
